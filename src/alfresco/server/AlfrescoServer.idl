@@ -1,0 +1,22 @@
+// $Revision: 1.1 $
+// $Id: AlfrescoServer.idl,v 1.1 2003/04/04 10:34:24 niclas Exp $
+// IDL for CORBA objects for a pre-analysis server
+//
+module alfresco {
+	module server {
+	
+		struct PairStruct{
+			string fasta1;
+			string fasta2;
+			string gff;
+			string cgff;
+		};
+	
+		interface AlfrescoServer {
+			typedef sequence<string> namesequence;
+			namesequence getNames();
+			PairStruct getPair(in string name);	
+		};
+		
+	};
+};

@@ -1,0 +1,16 @@
+// $Revision: 1.1 $
+// $Id: BlEst_Genome.idl,v 1.1 2003/04/04 11:38:40 niclas Exp $
+// IDL for CORBA object for a CpG analysis objects
+//
+#include "../Server.idl"
+
+module alfresco{
+  module corba_wrappers{
+    module blest_genome{
+
+      interface BlEst_Genome : Method {
+      };
+
+    };
+  };
+};

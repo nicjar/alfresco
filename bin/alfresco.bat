@@ -1,0 +1,1 @@
+java -cp alfresco.jar alfresco.Alfresco

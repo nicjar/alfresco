@@ -1,0 +1,115 @@
+<?xml version="1.0"?>
+
+<!-- 
+  
+  $Id: build.xml,v 1.6 2005/06/28 13:02:56 niclas Exp $ 
+
+  build.xml - build file for Alfresco 
+
+-->
+
+<project name="Alfresco" default="compile" basedir=".">
+   
+  <!-- Version -->
+  <property name="version" value="0.94"/>
+  <property name="version.name" value="alfresco_AZ_v${version}"/>
+ 
+  
+  <!-- Source directory -->
+  <property name="src.dir" value="src"/>
+  
+  <!-- Lib directory -->
+  <property name="lib.dir" value="lib"/>
+  
+  <!-- bin directory -->
+  <property name="bin.dir" value="bin"/>
+  
+  <!-- Temporary build directories -->
+  <property name="build.dir" value="build"/>
+  <property name="build.classes" value="${build.dir}/classes"/>
+  <property name="build.lib" value="${build.dir}/lib"/>
+  
+  <!-- distribution dir -->
+  <property name="distrib.dir" value="${version.name}"/>
+  <!-- distribution tar ball -->
+  <property name="distrib.tar.gz" value="${distrib.dir}.tar.gz"/>
+  <!-- distribution content dir -->
+  <property name="distrib_cont.dir" value="dist"/>
+
+  <!-- doc dir -->
+  <property name="doc.dir" value="doc"/>
+
+  <!-- Classpath -->
+  <path id="project.classpath">
+    <fileset dir="${lib.dir}">
+      <include name="**/*.jar"/>
+    </fileset>
+    <pathelement location="${build.classes}"/>
+  </path>
+  
+  <!-- Target to prepare build -->
+  <target name="prepare_build">
+    <mkdir dir="${build.dir}"/>
+    <mkdir dir="${build.classes}"/>
+    <mkdir dir="${build.lib}"/>
+  </target>
+  
+  
+  <target name="clean" description="Removes all generated files">
+    <delete dir="${build.dir}"/>
+    <delete dir="${distrib.dir}"/>
+    <delete file="${distrib.tar.gz}"/>
+  </target>
+  
+  <target name="compile" depends="prepare_build" description="Compiles all source code">
+    <javac srcdir="${src.dir}" destdir="${build.classes}" classpathref="project.classpath"/>
+  </target>
+
+  <target name="jar" depends="compile" description="Generates alfresco.jar in build/lib directory">
+    <jar jarfile="${build.lib}/alfresco.jar" basedir="${build.classes}">
+      <manifest>
+        <attribute name="Main-Class" value="alfresco.Alfresco"/>
+      </manifest>
+      <zipgroupfileset dir="${lib.dir}" includes="*.jar" />
+    </jar>
+  </target>
+  
+  <target name="run" depends="compile" description="Compiles and runs alfresco">
+    <java classname="alfresco.Alfresco" classpathref="project.classpath" fork="true" />
+  </target>
+  
+  <target name="runjar" depends="jar" description="Compiles, jars and runs alfresco from the jar file">
+    <java jar="${build.lib}/alfresco.jar" fork="true" />
+  </target>
+
+  <target name="build_dist_dir" depends="jar" description="Builds distribution directory">
+    <mkdir dir="${distrib.dir}"/>
+    <copy todir="${distrib.dir}/doc">
+      <fileset dir="${doc.dir}"/>
+    </copy>
+    <copy todir="${distrib.dir}">
+      <fileset dir="${distrib_cont.dir}"/>
+    </copy>
+    <copy todir="${distrib.dir}">
+      <fileset dir="${bin.dir}"/>
+    </copy>
+    <chmod perm="ugo+rx">
+      <fileset dir="${distrib.dir}">
+        <include name="install*"/>
+      </fileset>
+    </chmod>
+    <copy file="${build.lib}/alfresco.jar" todir="${distrib.dir}"/>
+  </target>
+
+  <target name="build_dist" depends="build_dist_dir" description="Builds distribution tar ball">
+    <tar destfile="${distrib.tar.gz}"
+    basedir="${distrib.dir}" 
+    compression="gzip"/>
+  </target>
+
+  
+  
+  
+  <target name="all" depends="clean, jar" description="Clean, compiles, and builds jar"/>
+  
+</project>

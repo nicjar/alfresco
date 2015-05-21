@@ -1,0 +1,84 @@
+mkdir src
+mkdir bin
+mv install bin
+mv install.pl bin
+mkdir src/alfresco
+
+in alfresco:
+foreach file (`ls *.java`)
+mv $file src/alfresco/
+cvs remove $file
+cvs add src/alfresco/$file
+cvs commit -m 'Moved $file to src/alfresco/$file' $file src/alfresco/$file
+end
+
+mkdir lib
+mkdir dev_notes
+mv notes dev_notes/
+mv notes.dba_gff dev_notes/
+
+
+mkdir src/alfresco/server
+in server:
+foreach file (`ls *.java`)
+mv $file ../src/alfresco/server
+cvs remove $file
+cvs add ../src/alfresco/server/$file
+cvs commit -m 'Moved $file to src/alfresco/server/$file' $file ../src/alfresco/server/$file
+end
+
+mkdir src/alfresco/server/AlfrescoServerPackage
+cvs add src/alfresco/server/AlfrescoServerPackage
+
+in server/AlfrescoServerPackage:
+foreach file (`ls *.java`)
+mv $file ../../src/alfresco/server/AlfrescoServerPackage
+cvs remove $file
+cvs add ../../src/alfresco/server/AlfrescoServerPackage/$file
+cvs commit -m 'Moved $file to src/alfresco/server/AlfrescoServerPackage/$file' $file ../../src/alfresco/server/AlfrescoServerPackage/$file
+end
+
+cp ~/java/JOB312/*.jar lib/
+cvs add -kb lib/OB*.jar
+cvs commit -m 'added files' lib/
+
+mkdir src/alfresco/applet
+cvs add src/alfresco/applet/
+
+in applet:
+foreach file (`ls *.[jh]*`)
+mv $file ../src/alfresco/applet
+cvs remove $file
+cvs add ../src/alfresco/applet/$file
+cvs commit -m 'Moved $file to src/alfresco/applet/$file' $file ../src/alfresco/applet/$file
+end
+
+mkdir src/alfresco/corba_wrappers
+cvs add corba_wrappers/
+
+foreach file (`ls corba_wrappers/*.[ji]*`)
+mv $file src/alfresco/$file
+cvs remove $file
+cvs add src/alfresco/$file
+cvs commit -m 'Moved $file to src/alfresco/$file' $file src/alfresco/$file
+end
+
+foreach dir (`ls -d corba_wrappers/[a-z]*`)
+mkdir src/alfresco/$dir
+cvs add src/alfresco/$dir
+end
+
+foreach file (`ls corba_wrappers/[a-z]*/*.[ji]*`)
+mv $file src/alfresco/$file
+cvs remove $file
+cvs add src/alfresco/$file
+cvs commit -m 'Moved $file to src/alfresco/$file' $file src/alfresco/$file
+end
+
+
+
+foreach file (`ls -a *.java`)
+if ( $file != "" ) then
+echo "->${file}<-"
+endif
+end

@@ -1,0 +1,16 @@
+// $Revision: 1.1 $
+// $Id: Genscan.idl,v 1.1 2003/04/04 11:39:26 niclas Exp $
+// IDL for CORBA object for a Genscan analysis objects
+//
+#include "../Server.idl"
+
+module alfresco{
+  module corba_wrappers{
+    module genscan{
+
+      interface Genscan : Method {
+      };
+
+    };
+  };
+};

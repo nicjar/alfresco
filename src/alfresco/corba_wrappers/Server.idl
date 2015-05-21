@@ -1,0 +1,43 @@
+// $Revision: 1.1 $
+// $Id: Server.idl,v 1.1 2003/04/04 11:32:50 niclas Exp $
+// IDL for CORBA object for a server for various analysis objects
+//
+module alfresco{
+  module corba_wrappers{
+    
+    exception NoSuchMethodException {
+      string reason;
+    };
+
+    exception NoOutputException {
+	    string reason;
+    };
+
+    typedef sequence<string> string_seq;
+    
+    struct InputStruct {
+      string_seq names;
+      string_seq seqs;
+      string_seq parameters;
+    };
+
+    struct GffDataStruct{
+      string gff;
+      string cgff;
+      string_seq suplements;
+    };
+
+
+    interface Method {
+      void input(in InputStruct input);
+      void run();
+      GffDataStruct getGffData() raises (NoOutputException);
+    };
+
+    interface Server {
+      Method getMethod(in string methodName) raises (NoSuchMethodException);
+      string_seq getAvailableMethods();
+    };
+
+  };
+};

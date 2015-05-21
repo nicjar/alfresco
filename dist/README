@@ -1,0 +1,53 @@
+This is an AstraZeneca distribution of Alfresco version 0.93. 
+
+It runs on UNIX systems and in principle on Windows systems, although there seems to
+be a problem with running analysis programs under Windows.
+
+This version uses a CORBA server running at Alderly Park for the external 
+analysis programs. (CORBA? What the h*ll is CORBA? Well, you really don't have to
+worry about it. When you select an analysis, like RepeatMasker, that analysis is 
+done on a machine somewhere in the vicinity of Manchester).
+
+If you have a previous version of alfresco installed there will be an 
+incompatibility for previouly saved analysis files. To be on the safe side, 
+open the saved analysis with the provious version, and select save .cgff file 
+from the File menu. This will create two textfiles that can be opened by this 
+version of Alfresco.
+
+
+INSTALLING ON A UNIX SYSTEM
+
+To install it cd to this directory and type './install'. You will be asked
+for a place to install alfresco, the default being your home directory. If you 
+have root access I recomend to install it somewhere where all users can 
+execute it, e.g. in /usr/local.
+
+A start-up script named 'alfresco' will be placed in a bin directory under the 
+directory you specified above. Make sure this directory is in your path, then 
+type 'alfresco' to run the program.
+
+
+INSTALLING ON A WINDOWS SYSTEM
+Note that external methods doesn't seem to work under Windows, which makes it of
+limited use. I'll try to sort this out later.
+To run Alfresco you need java installed. If you haven't got that, get your helpdesk
+to help you with that. Doubble clicking on the alfresco.bat file should do the rest.
+
+
+MANUAL
+There is an old manual in the manual directory (open the index.html file with a web
+browser). The manual is hopefully still useful although it's a bit dated.
+
+
+EXAMPLES
+There are some example sequences in the example_seq directory. Opening one of the
+.cmp files will open the corresponding sequence files and also display corresponding
+gene features on these sequences, so you can have some colourful boxes to play
+around with ;). 
+
+
+If you have any further questions, just contact me.
+
+Niclas Jareborg
+AstraZeneca R&D Sodertalje
+Molecular Sciences, Genetics & Bioinformatics

@@ -1,0 +1,16 @@
+// $Revision: 1.1 $
+// $Id: Est_Genome.idl,v 1.1 2003/04/04 11:39:11 niclas Exp $
+// IDL for CORBA object for a CpG analysis objects
+//
+#include "../Server.idl"
+
+module alfresco{
+  module corba_wrappers{
+    module est_genome{
+
+      interface Est_Genome : Method {
+      };
+
+    };
+  };
+};

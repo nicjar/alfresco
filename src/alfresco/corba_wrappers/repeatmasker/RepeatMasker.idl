@@ -1,0 +1,16 @@
+// $Revision: 1.1 $
+// $Id: RepeatMasker.idl,v 1.1 2003/04/04 11:39:34 niclas Exp $
+// IDL for CORBA object for a RepeatMasker analysis objects
+//
+#include "../Server.idl"
+
+module alfresco{
+  module corba_wrappers{
+    module repeatmasker{
+
+      interface RepeatMasker : Method {
+      };
+
+    };
+  };
+};

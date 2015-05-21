@@ -1,0 +1,833 @@
+970922
+class EntryPair
+class Reciprocal
+changed CDSparse constructor to make "anonymous" Reciprocal Vector
+
+970923
+Entry.java:	added setEntry1(Entry ent), setEntry2(Entry ent), and entriesSet()
+						methods
+970924
+updated Glyph
+class CompositeGlyph
+class SeqRangeSet
+class ReciprocalSet
+made EntryPair,Entry, SeqRangeSet, and ReciprocalSet subclasses of
+CompositeGlyph
+made SeqRange and Reciprocal subclasses of Glyph
+
+970925
+restructured Glyph hierarchy considerably (see classes)
+
+970926
+removed CDSparse class
+introduced CmpFile class, rewrote parser
+cleaned up glyph hierarchy, I think it's pretty clean...
+Wcomp compiles, but is now lacking drawing and updating of EntryGadgets
+
+970929
+strugled with Glyph drawing and cmp file parsing
+EntryGadget updating fixed (optimal way ?)
+
+970930
+Got drawing to work (more or less...)
+Got started on Glyph interaction. Exons can be selected, why not others..?
+
+971001
+Fixed interactions, selection of Glyphs now behave as expected
+
+971002
+fixed parse algorith in CmpFile. Now works (?) for files with several genes
+per entry, and parses complement values correctly.
+Updated SeqRange to contain a complement member variable.
+Updated Glyph to contain a complement member variable.
+Updated Gene: draw() draws < or > in genename depending on direction.
+Deleted half of my source files. Swell!
+
+971003
+Lost files were restored from backup. Updated changes since last backup.
+Wrote backup script for comp directory ;-)
+Implemented CoordVal class.
+
+971006-971010
+introduced CoordVal objects in Glyph hierarchy
+Added scroll and zoom bars to main window
+started playing with zooming
+
+971013
+inverted the zoom variable in CoordVal class and updated methods that use it.
+Restored Dotter.java and Regionset.java from backup (deleted 971002 ;-)
+deprecated Dotter class. Introduced DotterFile class instead.
+
+971014
+Introduced SeqRegionFactory (to implement Flyweight design pattern for SeqRange
+objects)
+Updated DotterFile.
+
+971015
+Implemented DotterFile.getMatches() and DotterFile.aboveCutoff()
+Introduced DotterRegion and DotterRegionSet classes
+
+971016
+Tried to display DotterRegions with limited success. The offset seems to be
+screwed up, and the whole sequence will show similarity to something else
+
+971017
+Introduced RegionSet class. Got highlighting to work (more ore less)
+
+971020
+Fixed positioning of Glyphs. DotterRegion obj etc now display correctly.
+
+971021
+Fixed scrolling and zooming. More or less bugg-free ;-)
+
+971022
+Fixed selection and highlighting of DotterRegion obj.
+Updated RegionDialog: cancel button now removes DotterRegionSets
+
+971023-24
+Adding of Region sets to display now works. 
+Introduced AttributeDialog to choose color for saved RegionSet.
+Renamed promoteB to addB. Added removeB (remove code not implemented)
+Fixed zooming of RegionSets
+Added zoom level labels to MainWindow
+
+971027
+Implemented dubble buffering for drawing.
+Added Setting menu (Coordinated scrolling and zooming)
+Rough implementation of coordinated scrolling and zooming
+Rough implementation of middle  and right mouse button zooming
+
+971028
+Changed name to synchro scrolling and zooming
+Implemented Scale class. Displays on highest/lowest tier. Tick scale depending
+on zoomlevel.
+Fixed positions of tiers ((canvHeight/2)/(MAXTIER+1)) (not just MAXTIER)
+Fixed selection of RegionSet. Still to remove highlight() methods!
+
+971029
+Removed highlight() methods in RegionSet and DotterRegion.
+Implemented Open and Save of EntryPair. (Saving of dotterRegion slow and buggy!
+Entry file names don't get updated either...)
+
+971114
+Added itemLabel to MainWindow that shows what Glyph is selected.
+Fixed toString() for Glyphs
+Implemented FastaFile class
+
+971115
+Implemented callDotter() in RegionSet
+
+971119
+Implemented callDotter() in Reciprocal
+Improved cmp file parsing in CmpFile
+Implemented efetching of entries if files aren't present
+cmp files can now be read irrespective of location
+Dotter now displays correct positions
+
+971120
+Implemented masking of range of FastaFile sequence
+CDS and repeats masked before initializing DotterRegionSet
+(NB! Still a lot of "exclude" relics left, need to clean up!)
+Initializing of DotterRegionSet from initB now checks state of "exclude CDS"
+checkboxes.
+Implemented DotterFeatureFile class to show existing exons in dotter
+
+971121
+Added Synchro scroll and zoom bars
+Removed Synchro scroll and zoom menu items
+Added classes ScrollZoomDirector and ColleagueScrollbar
+
+971124
+Started implementation of scrolling using ScrollZoomDirector. Absolute scale
+needed instead of fraction of seq lenght. (- seq length of longest seq to + seq
+length of longest seq ?) 
+
+971125
+Worked more on scrolling and zooming. Somewhat improved...
+
+971126
+Ewan worked out a transformation function for zooming (scrollbar value <->
+zoomfactor) so that fractional increase in size is linear instead of inversly
+exponential. Zooming now ok. The synchro zoombar will be set to the zoomlevel of
+the last active zoombar. OK?
+Scrolling now better. BUT at high zoomlevels strange things happen after a bit
+of synchro scrolling. Several copies of each seq appear and everything gets
+f-cked up. Sequences "jump" when synch scrolling after independent scrolling.
+
+971127
+Found problem with "jumping", added setPrevVal() to updateScroll() and
+updateSynchScroll(). 
+Decided to change scrolling implementation. Change actual min and max values of
+scrollbars to -joinLen and joinLen+canvWidth. Change these when updating SBs and
+zooming. Change lineIncrement and blockIncrement when zooming. May the force be
+with me....
+And they were (more or less). Scrolling now almost good. max and min turned
+around ( -(joinLen+canvWidth) and joinLen, resp), so X values have to be
+negated which is a bit tricky. 
+
+971128
+Added Close Menu Item. Moved "Read .cmp file" MI to File menu. Added "Read .gff
+file" and "Read .mgff file" menu items, both disabled, to File menu.
+Cleaned up some code. 
+Improved saving/opening. Now behaves mor or less as expected, except asking if
+save is needed. DotterRegionSet objects now saves more efficiently,
+SeqRangeFactory objects discarded on save, array of DotterPoint Vectors in
+DotterFile objects discarded on save and repopulated on load. 
+EntryPair files and .cmp files are now loadable from the command line.
+
+971201
+Implemented Selector class to draw marquee selecting parts of an entry. Is
+subclass of SeqFeature. Is created when dragging in mw.seqCanv.
+Implemented OkNoCancelDialog.
+Open and Close menu items now ask if saving needed.
+
+971202
+Started on a SequenceDisplay class. Drawing needs to be fixed.
+Implemented FormatSeq class to format a sequence String with numbering and
+newlines.
+
+971203
+Improved the SequenceDisplay class. Now almost ok, though updating of canvas
+needed (same problem as with MainWindow). Maybe setting FocusListener for the
+canvases will work.
+Implemented GlyphVector class. Used in EntryPair to hold several
+selectedGlyphs.
+Implemented multiple selection of Glyphs. Pressing middle mouse button will not
+deselect previous Glyphs. Multiple selectors is not working (look at setting of
+selector member in EntryPair). Dotter of two selected Glyphs not working (test
+for size == 2 and call dotter)
+
+971204
+Implemented SelectorPair to hold one or two Selectors. Selection of two regions
+now works. Dotter on two SeqFeature objects (eg Exon, Selector etc) now work.
+
+971205
+Fixed calling of dotter on Reciprocal and RegionSet. Also Fixed redrawing and
+resetting of currentDotterRegionSet when reopening RegionDialog.
+
+971208
+Richard suggested FRESCO, FRont-End for Sequence COmparison, as a name for the
+application. Good?
+
+971209
+Cleaned up some bugs, eg reseting dotterRegionSets when closing. Added utrs to
+DotterFeatureFile output. 
+Made wcomp.jar for fiv97 meeting
+
+971212
+Removed CommandMediator class. 
+Composed a download page and a download archive.
+
+971215
+Implemented RepeatMaskerFile class that can parse RepeatMasker .RepMask files and
+creates appropriate Repeat objects.
+Implemented LINERepeat, SINERepeat, SimpleRepeat, and LowComplexityRepeat classes.
+Added RepeatMasker Menu Item to Function menu.
+Added callRepeatMasker in Entry class.
+Selection of Repeat objects covered by Gene objects not working. Repeat colour not yet 
+optimal. More Repeat classes needed?
+
+971216
+Changed DotterFeatureFile class to generate format 2 output, and add repeats to
+features. Exons and UTRs belong to "genes" series, and Repeats to "repeats" series.
+Repeats are drawn thinner.
+Changed addChild() in CompositeGlyph to add children to beginning of Vector unless the
+child is a Gene which gets added to the end of the Vector. This fixes problem of
+selecting glyphs covered by Genes.
+Added LTRRepeat and DNAtranspRepeat classes.
+
+971219
+Changed drawing of SeqFeatures so they are drawn above or below Entry line
+depending on wether they are on the upper or lower strand.
+
+980106
+Creating a Wcomp obj will create a .frescotmp dir (def in UsefulConstants). Will
+be emptied and deleted on quit. All tmp files that are created should be written
+to this dir. Started on changing different File classes to write to the tmpdir.
+
+980107
+Naming of files ok (I think).
+
+980108
+Added GffFile class.
+Added gffString() to SeqFeature, and gffLines() in EntryPair. 
+Generation of .gff files now work (except that exons are written out in reverse
+order)...
+Started on cgff generation (cgffString() in Reciprocal and cgffLines() in
+EntryPair)
+Wrote Adrian Smit and asked about RepeatMasker.
+
+980109
+Added CgffFile class.
+Fixed problem of reverse order printing. (Children are by default stored in
+reverse order except Genes. This is to handle selection of Glyphs overlapped by
+Genes. The fix is to make sure Entry and ReciprocalSet returns the features in
+correct order. in the case of ReciprocalSet addChild() was overridden)
+.gff and .cgff files now generated correctly (hopefully...)
+
+Added CpG class for cpg and cpg2ace.
+Added CpGIsland glyph class.
+CpG.parse() adds CpGIsland's to entry
+Added findCpG() to EntryPair
+Missing: add CpG menu item and method
+
+980112
+Added CpG menu item & method.
+Fixed tier allocation for CpGIsland.
+Started on adding Show Introns menu item in Settings menu
+
+980113
+Show introns menu item implemented.
+Fixed drawing only on -5000 to 5000 to prevent Xwindows from screwing up when
+coordinates gets above 32K. Changed draw in SeqFeature, Entry and Scale
+(more? Reciprocals?).  
+(Seems to screw up scrolling. FIXED! change getPixelWidth() in Entry to
+return realWidth instead of canvWidth) 
+
+980114 
+Changed Reciprocal.draw() not to draw when either feature is outside -5000 to
+5000 region.SeqFeature: When checking if feature is outside drawing area
+boundingRect has to be set to beginning or end of drawing area (I think...).
+Drawing at high zoom levels now seems to work OK.
+
+Added resizing of MainWindow. SeqPane and the two synchroScrollBars behave
+correctly. Drawing on SeqCan NOT working properly. Related to Graphics/Image
+in Wcomp? Fixed (almost)! (added updateGraphics() in Wcomp). Entries are not
+spread out vertically. Fixed! changed updateGraphics() in Wcomp to update
+the CoordVal objects of the entries.
+
+Implemented choice of masking Repeats when making Region sets.
+
+980115
+Created new fresco.jar file and updated download page.
+
+Started on javadoc documentation for all classes...
+
+980116
+Documentation...
+
+980119
+Documentation...
+Did changes in ReciprocalSet: removed entry1 and entry2 members as well as some
+constructors, and addReciprocal().
+Changes in EntryPair constructors to create ReciprocalSet and add to children  
+Let's see if it still compiles...
+
+980120
+Documentation...
+Changes in SeqRange: Removed the Entry member and, all methods that deals 
+with Entry
+Code compiles!
+
+980121
+Fixed some minor bugs that was introduced during documentation.
+
+980122
+Added getClassName() to Glyph to get name of Glyph class without the package
+name. Changed in SeqFeature and Reciprocal where necessary.
+
+989123
+Implemented Dba and AlignmentBlock classes. Calling dba works really awesome!
+Still got to fix correct ranges when parsing dba output.
+
+980126
+Implemented an AlignmentDisplay that can show AlignmentBlocks in a formated way.
+AlignmentBlock ranges are now ok.
+
+980127
+Added calling of dba to regionSet generation to narrow down regions to similar
+block. Is working so-so. Calling Dotter on RegionSet doesn't work.... Have to
+call dba on reverse strand as well...(-> reverse compl function???)
+
+980128
+Fiddled with regionSets some more, calling Dotter now works. 
+
+980129
+RegionSet now calls dba on the reverse strand as well. 
+Improved AlignmentDisplay to show sequence names, start and stop coordinates,
+and to handle reverese complement ranges correctly (I hope). 
+For RegionSets dba is called with a range including the two flanking
+DotterRegions.
+Changed Dba et consortes to mask repeats in subsequences used by dba. dba does
+however blow up if there are too many Ns in the sequence (mailed Ewan)
+
+980130
+Made changes to dbac.c to fix problem of N masked sequences. Masking of
+subsequences and calling of dba now working.
+Added "Save to file" button to AlignmentDisplay, with save implementation.
+Only blocks that overlap the original DotterRegion is saved in the Dba obj for
+RegionSets.
+Make Dba into a Glyph? ... maybe not. Split DotterRegions into several based on
+dba blocks?
+
+980202
+Added "Save to file" and "Save to Fasta file" buttons to SequenceDisplay.
+DotterRegions are now added to DotterFeatureFile.
+Looked at MatInspector, for calling on conserved seqs....
+
+980203
+Added setComment() to FastaFile to be able to modify the comment line when using
+fasta files with some external programs that are a bit picky about the shape of
+the comment line. (What a great days work!)
+
+980205
+Fixed initial updating of scrollbars. Should check that the proper values for
+width and x positions get passed (realX, realWidth vs canvX, canvWidth)
+Added DbaParamDialog class. Parameters for Dba set at init (almost done).
+
+980206
+Fixed a bug in RegionSet, now the proper mask Vector is passed on to Dba
+constructor.
+If dba alignment isn't found for query Region the original queryRegion is added
+to RegionSet, and a warning is set. Warning can be checked, returned
+and displayed at the appropriate place e.g. status label in MainWindow.
+
+980211
+Created new fresco.jar file, added dba src to fresco dist, created new
+distribution archive and updated download page.
+
+980212
+Fixed bug in AlignmentDisplay. Newlines are no longer drawn on canvas and the
+matchstring is correctly displayed and written to file.
+Checked out jdk1.1.5 :-(... Graphics sucks! Fonts all screwed up!
+
+980217
+Started implementing FeatureEditDialog.
+
+980218
+More FeatureEditDialog. Layout....:-(
+
+980219
+Came to terms with GridBagLayout, finally. Got into reflection for creating
+SeqFeatures, and it's working too!!
+Implemented ErrorDialog.
+
+980223
+Added Remove Feature menu item to Edit menu. Removes selected feature and
+reciprocal if there is one.
+
+980224
+Messed around with Fresco on orasrv1, getting dotter to work etc. Objectify
+dotter calling?
+
+980227
+Got genscan working!!! Got to fix names of predicted exons with scores etc
+
+980302
+Fixed file name mess (I think) Everything should be absolute names now...
+
+980303
+Wrote DotterApplet for displaying Dotter output files. (for Steve)
+
+980304
+Fixed names of predicted SeqFeatures + score, prediction method, frame...
+gff lines now more like they should be.
+
+980306
+Fixed (?) problem of byte order in dotter output files.
+
+980212 
+Fixed updating of Canvases in MainWindow, SequenceDisplay, and
+AlignmentDisplay. Finally! There is no need for catching all types of events,   
+instead override the paint() method for Canvas. This means Canvas should be
+subclassed, but since this is the only functionality that has to be altered
+this is best done by an anonymous Canvas subclass.
+
+980317
+Created cvs repository for fresco
+
+980318
+Improved Genscan parsing. Now adds suboptimal exons on higher tiers, except
+exons which overlap optimal exons.
+Added 'Make reciprocal' button to AlignmentDisplay.
+Added DbaBlock (Glyph) class. Stores AlignmentBlock 
+Genscan maskes repeats except SimpleRepeats
+
+-980327
+Added classes for alignments, NWAlign and SWAlign + Align superclass that
+declares some Template Methods that subclasses have to implement, eg
+doDynamicProgramming()
+MenuItems for these alignments added to MainWindow.
+Worked on GffParse class.
+
+980330 
+Changed Genscan parsing. Exons, but not PolyA and Promoters, are now added to a
+CDS before being added to a Gene. Made minor changes in CompositeGlyph and
+CompositeSeqFeature. Added addChildren() method to add a vector of child
+Glyphs.
+
+980331
+First version of a reciprocal finder, ReciprocalsFinder. 
+Have to add "Remove Reciprocal" menu item, or change "Remove Feature" menu item
+
+980401
+MainWindow: Added "Make Reciprocal" menu item. Changed "Remove Feature" to
+remove Reciprocals also. Added "Change Tier" menu item.
+Added TierDialog class.
+ReciprocalFinder: added checkOrder() method. Not optimal...
+
+980402
+GffParser: First (almost) functional version.
+Added Misc SeqFeature class.
+Gene: Added getName() method. Added addChild() method that adds Exons to a CDS
+that belongs to the Gene. Added getCDS() method
+Entry: added getGenes() method
+MainWindow: Enabled Read .gff file menu item and implemented eventListener. Find
+Reciprocals menu item enabled after running Genscan.
+Exon: changed gffString() to include the gene name in the group position
+
+980403
+GffParser: improved parsing. Still needs work...
+Intron: changed gffString() to include the gene name in the group position
+Added Similarity SeqFeature class.
+EntryPair: added nudgeOverlappingGenes() method.
+Entry: added nudgeOverlappingGenes() method. added nudgeDown() and nudgeUp()
+methods (not really working ok).
+Gene: added overlap(Gene) method.
+CompositeSeqFeature: added getSeqRange() method.
+CompositeGlyph:  added getChildrenByClass() method.
+CoordVal: changed MAXTIERS to 15
+
+980405
+Entry: nudgeUp() and nudgeDown() now work more or less satisfactory, but changed
+addChild() back to not do any nudging of Similarity objects.
+
+980406
+CoordVal: changed MAXTIERS to 10
+GffParser: minor parse improvments
+
+980407
+CmpFile: changed parsing slightly. As Gene.addChild() now handles creating a CDS
+there is no need for CmpFile.parse() to do that.
+UTR: Added gffString() and getGene() methods
+GffParser: parsing now handles UTRs
+SeqFeature: changed toString() method to include predMethod
+MainWindow: selecting Remove Feature menu item pops up a confirm dialog. 
+MainWindow: selecting RepeatMasker menu item pops up a species selection dialog
+Entry: changed callRepeatMasker() to take a String argument for the species
+option
+Added RepeatMaskerSpeciesDialog class
+
+980408
+RepeatMaskerSpeciesDialog: changed layout to GridBagLayout
+
+980422
+Added NewDbaParamDialog and NewDba classes to be able to test out the parameters
+for the new dba program.
+
+980425
+Finished adding newdba, made changes in Wcomp, MainWindow and UsefulConstants.
+Still need to complile newdba for osf
+
+980427
+Added NewDba menu item to View menu in MainWindow.
+Compiled dba for osf, after a minor change (-params should return all
+parameters).
+
+980428
+Fixed score calculation in NewDba.
+
+980429
+Started on improving reciprocal finding.
+
+980430
+Reciprocal finding implemented with newdba, works but slow
+
+980505
+Changed package name to alfresco. Stared to update distribution files and
+download page.
+
+980506
+Download page and archives updated. Started writing an html user manual.
+
+980507
+Writing Manual
+
+980508
+Manual version 1.0 completed.
+Download page and distribution archives updated.
+UsefulConstants: changed GENSCANPATH to read System property
+alfresco.genscanpath.
+MainWindow: Find reciprocals menu item always enabled
+Entry: Can now read fasta files with more than one sequence. Sequences will be
+concatenated with 100 Ns inserted between them.
+
+980512 
+Added -f to alfresco startup script in dist to force it to use the variables of
+the current shell.
+UsefulConstants: added REPEATMASKERPATH constant
+Entry: call to RepeatMasker now includes REPEATMASKERPATH
+CpG: call to cpg2ace is now includes CPGPATH
+
+980513
+GffParser: Changed parser to split lines on whitespace instead of tabs. This is
+not according to the format but what many produce.
+Removed Promotor (SeqFeature) class.
+Added Promoter (CompositeSeqFeature) class.
+Added TATA, TFBS and TrxStart classes
+Genscan: Now ignores promoter prediction
+RegionSet: Now uses newdba
+Started on Tssw class for TFBS finding
+
+980514
+Tssw: More or less functional
+UsefulConstants: Added TSSWPATH constant
+MainWindow: Added tssw menu item
+TFBS: added id and consensus variables + get and set methods
+TrxStart: changed drawing size on canvas
+TATA: changed drawing size on canvas
+
+980515
+SeqFeature: Drawing on higher tiers destinguish between upper and lower strand
+Added TFBSSet, for keeping a list of TFBS that should be visible. Subclass of
+Observable.
+Added TFBSEditDialog, for selecting wich TFBSs should be visible. Not yet
+functional?
+
+980518
+MainWindow: Added TFBS settings menu item.
+EntryPair: now implements Observer, implemented update() to make only certain
+TFBSs visible.
+Entry: Added getPromoters() and getTFBSs() methods
+TFBSSet: must call setChanged() for observers to be notified.
+Tssw: TFBS ids added to TFBSEditDialog during parsing, and visble set to false.
+
+980519
+TFBS: fixed drawing bug, blue frame should only be drawn if visible.
+TFBSSet: removed overriding of notifyObservers()
+
+980520
+EntryPair: commonTFBSs() changed to getCommonTFBSIds() that returns a vector of
+id names.
+TFBSEditDialog: Redesigned the layout of the window. Now functional.
+Glyph: added overlap(Glyph), checks overlap, tier and complement.
+SeqFeature: removed overlap(SeqFeature)
+Tssw: changed nudge to reflect changes in Glyph and SeqFeature.
+
+980521
+SeqFeature: Added getBounds(), overrides Glyph.getBounds(). Calculates bounds,
+and canvX, canvY, canvHeight, canvWidth etc. This removed from draw().
+Added setTier(), overrides Glyph.setTier(). Sets tier sign dependent on
+coord.entryTier value. Should be called with absolute tier value, but checks
+before setting to be compatible with old code (should be purged...)
+Glyph: Changed overlap() again to use Rectangle.intersects().
+TFBSEditDialog: Fixed bug in Remove item button behaviour.
+TierDialog: Now shows, and returns, absolute tier value
+CoordVal: MAXTIERS calculated from canvHeight
+Entry: Added getScale() method
+EntryPair: changes tier of scales in updateCoordVals() method
+
+980522
+Promoter: Semantic zooming!!! Below zoom 0.8 only trx start is drawn, above that
+all TFBSs are drawn.
+SeqFeature: Activated overlap(SeqFeature) again. Checks tier, complement and 
+location.
+Tssw: Fixed nudging, children must be compared in reverse order since they are
+stored last to first
+
+980526
+Added AlfrescoApplet class, just creates an new Wcomp at the moment.
+Added Alfresco class with main function from Wcomp. To avoid name confusion
+Wcomp: removed main() method.
+
+980527
+ColleagueScrollbar: removed changed() method
+ScrollZoomDirector: changed scrollBarChanged() method to only take an
+AdjustmentEvent as parameter, gets the scrollbar from the event.
+MainWindow: scrollZoomListener calls szDirector directly with the AdjustmentEvent
+FeatureEditDialog: Updated feature list
+
+980528
+SeqFeature: Changed gffString() to print Alfresco instead of Fresco
+CmpFile: now handles > and < in ranges
+
+980529
+FastaFile: made constructors public
+Added CgffParser, not functional
+
+980601
+CgffParser: now functional
+CompositeSeqFeature: added getFeature(SeqRange range, String classname) method
+Entry: added getFeature(SeqRange range, String classname) method
+GffParser: correct parsing of DbaBlock
+Glyph: added isVisible() method
+MainWindow: implemented Read cgff file menu item
+Reciprocal: reciprocal is set to !visible in the constructor if any of the
+features are !visible 
+
+980610
+MainWindow: Remove feature Menu Item now removes CompositeSeqFeatures as well.
+CompositeGlyph: Added removeChildren() method that removes all children
+recursively.
+Glyph: Changed removeChild() to remove children of glyph to be removed. Added
+setParent() method.
+ReciprocalSet: Added purgeReciprocals() method that removes all reciprocals that
+have a feature with a parent ie that has been removed.
+
+980611
+Glyph: added removeFromParent() method
+MainWindow: Added Make Gene menu item. Constructs a gene from one or more
+selected features.
+
+980612
+MainWindow: Added Add Feature to Gene menu item, that adds a selected feature to
+a selected gene. Added Remove Feature from Gene menu item, that removes a
+selected feature as a child to a gene and changes the tier to a higher level.
+
+980615
+Added GeneEditDialog for setting gene name and tier.
+Gene: added setName() method
+MainWindow: Make Gene menu item now displays dialog asking for name and tier of
+gene. Added Edit gene attributes menu item, shows dialog.
+
+980625
+CompositeGlyph: changed clicked() slightly to store first CompositeGlyph clicked
+and go on checking more children. Preferently returns a non-CompositeGlyph.
+
+980706
+Started on a AlfrescoServer IDL for a dummy pre-analysis server. Created server
+and applet subdirectories (and packages)
+
+980707
+EntryPair: Added constructor that takes a alfresco.server.PairStruct object as an
+argument.
+Entry: Added constructor that takes a string (in fasta format) instead of a
+filename, for using with CORBA
+CgffParser: Added constructor that takes a alfresco.server.PairStruct object as
+an argument and parses the cgff and gff specified therein. For using with CORBA
+
+980708
+server.AlfrescoServer_Impl: Now functional. Added to $CVSROOT/alfresco/server
+applet.AlfrescoApplet: Now more like a real applet
+Entry: getFilename() now returns name from fasta comment line if ther is no
+entryFile
+EntryGadget: added hideButtonAndTextField() method for applet
+MainWindow: Changed constructor to populate window depending on whether it is
+part of an application or an applet. For this initFullGUI() and initAppletGUI()
+were added.
+Wcomp: Constructor now takes a boolean parameter application to determine whether
+it is an application or an applet. isApplication() method added
+
+980709
+A reasonable applet now working that can retrieve pre-analysed entry pairs from a
+CORBA server, Sequences, and, local and global alignments are viewable.
+applet.AlfrescoApplet: Now sets CORBA server of Wcomp
+Added applet.PairDialog for selecting entry pairs
+Added SystemConstants interface for constants that make system calls. For
+preventing security exception when running as an applet.
+UsefulConstants: removed constants that make system calls. Moved to
+SystemConstants.
+MainWindow: Open remote entry pairs menu item now gets CORBA server from Wcomp.
+Added View Menu + Sequence, NW alignment, SW alignment menu items to applet GUI.
+Wcomp: added getMainWindow(), setServer(alfresco.server.AlfrescoServer server),
+and getServer() methods. made changes to accomodate moving of some constants to
+SystemConstants
+CpG, Dba, DotterFile, DotterRegionSet, Entry, EntryGadget, EntryPair, FastaFile,
+Genscan, NewDba, Reciprocal, RegionSet, TFBSEditDialog, Tssw: made changes to
+accomodate moving of some constants to SystemConstants
+
+980713-16
+Added HCR SeqFeature class, Highly Conserved Region
+Added Dbb class for dbb alignments
+Added DbbParamDialog
+AlignmentBlock: added level variable for dbb alignments + new constructor +
+getLevel() method
+AlignmentDisplay: Now prints level. Make reciprocals creates HCRs instead of
+DbaBlocks
+Entry: toString() now uses the name variable
+GffParser: CpGIsland tiers are set to 2 and not to seven. Added parsing of HCRs.
+MainWindow: Added menus for Dbb.
+OkNoCancelDialog: added the possibility to specify whether the dialog should have
+a No button or not
+SystemConstants: added DBBPATH
+UsefulConstants: added constants for dbb
+Wcomp: constructor creates new DbbParamDialog instance
+HCR: Added setBounds() method to override SeqFeature, instead of overriding
+draw(). Added setGestalt() method that changes the look depending on the level.
+Added gffString() method that writes level, id, and gaps to the group field
+DbbParamDialog: Fixed layout.
+Added cvs header to all files that didn't have one.
+Added GNU GPL header to all files
+
+980810
+HCR: added toString() method
+
+
+=====================LOOOOOOONG BREAK in note writing=========================
+990805
+A lot of changes. Too numerous to comment on at this stage.
+Things in the air: 
+*Calling of methods
+  Implemented CorbaMethodRunner. Not used by any methods yet. Clean up calling!!!
+  Should implement InputStructGenerator ( addSeq(name, seq) and 
+  addParameters(parameters) methods)
+  Implement corba wrapper implementations for
+    est_genome
+    DBA(?)
+  Change GffDataStruct interface to be able to pass along free form string data
+  associated with each method (e.g. DBA alignments)
+  
+*Parameters
+  Current situation with java.properties not satisfactory
+  Work out new system using ~/.alfrescorc file, default file generated the first 
+  time the program is run. See notes.rcfile
+
+
+
+
+
+_Bugs_
+Region sets are broken: clicking on a region often doesn't work....
+
+__ToDo__ 
+
+Improve ReciprocalFinder
+
+
+
+fix make reciprocal button in alignment window to add a more generic object than
+DbaBlock
+
+Edit Gene menu item 
+Edit Gene Dialog
+	Gene name
+	Add/Remove Children
+
+View Gene mRNA
+View Gene protein
+
+
+Interface for Features (SeqFeatures and CompositeSeqFeatures) ? {
+	predicted
+	predMethod
+	score
+	frame
+} or move these members + methods to SeqFeatures only?
+====> Now in SeqFeatures only
+
+Getting at reciprocals must be improved eg EntryPair.addReciprocal() method
+
+Look at complement of SeqFeatures and SeqRanges 
+
+genscan, fexh
+
+What is EntryUpdater doing? Should it be changed
+
+Collapsing of Introns...
+Semantic zooming. Show aligned sequence at highest zoom level for exons.
+
+(Generate .cmp file)
+ErrorDialog class
+Manipulate SeqFeatures(create, delete, edit). Create Reciprocals.
+
+take a new look at drawing (Decide where to put the main drawing method)
+Clean up constructor mess in SeqFeatures
+(Multiple?) (sub)sequence viewer
+Printing
+
+
+__Blurb__
+Change Entry to have File as a member (instead of filename) so the full path
+can be retrieved. Change CpG constructor (path and filename not needed)
+
+Auto-generate introns from exon structure

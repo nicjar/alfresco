@@ -1,0 +1,32 @@
+// $Revision: 1.1 $
+// $Id: BlastAlign.idl,v 1.1 2003/04/04 11:38:25 niclas Exp $
+// IDL for CORBA objects for a blastalign server
+//
+#include "../Server.idl"
+
+module alfresco{
+module corba_wrappers{
+	module blastalign{
+
+// 		exception NoOutputException {
+// 			string reason;
+// 		};
+// 	
+// 		struct BlastAlignStruct{
+// 			string gff;
+// 			string cgff;
+// 		};
+// 	
+// 		interface BlastAlign {
+// 			BlastAlignStruct alignN(in string name1, in string name2, in string seq1, in string seq2)
+// 				raises(NoOutputException);
+// 			BlastAlignStruct tAlignX(in string name1, in string name2, in string seq1, in string seq2)
+// 				raises(NoOutputException);
+// 		};
+
+		interface BlastAlign : Method {
+		};
+		
+	};
+};
+};

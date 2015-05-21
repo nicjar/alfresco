@@ -1,0 +1,1039 @@
+<HTML>  
+<HEAD>
+  <META NAME="GENERATOR" CONTENT="Adobe PageMill 3.0 Mac">
+  <TITLE>ALFRESCO Manual</TITLE>
+</HEAD>
+<BODY BGCOLOR="#ffffff" topmargin="0">
+
+<H1><CENTER>Alfresco Manual, version 2.0</CENTER></H1>
+
+<P ALIGN=RIGHT><I>&copy; 1998-1999, Niclas Jareborg</I></P>
+
+<H2>Contents</H2>
+
+<DL>
+  <P><A HREF="#intro">Introduction</A>
+  <DT><A HREF="#install">Installation</A>
+  <DT><A HREF="#quickstart">Quick Start</A>
+  <DT><A HREF="#term">Terminology</A>
+  <DT><A HREF="#mainwin">Main Window</A>
+  <DD><A HREF="#imp">Importing sequences</A>
+  <DD><A HREF="#display">Display area</A>
+  <DL>
+    <DT><A HREF="#menus">Menus</A>
+    <DD><A HREF="#file">File</A>
+    <DD><A HREF="#edit">Edit</A>
+    <DD><A HREF="#function">Function</A>
+    <DD><A HREF="#view">View</A>
+    <DD><A HREF="#settings">Settings</A>
+  </DL>
+  <DT><A HREF="#external">External Programs</A>
+  <DD><A HREF="#dotter">Dotter</A>
+  <DD><A HREF="#cpg">CpG</A>
+  <DD><A HREF="#repeatmasker">RepeatMasker</A>
+  <DD><A HREF="#genscan">Genscan</A>
+  <DD><A HREF="#dba">dba</A>
+  <DT><A HREF="#session">Example session</A>
+  <DT><A HREF="#acedb">Alfresco and ACEDB</A>
+  <DT><A HREF="#appendix">Appendix</A>
+  <DD><A HREF="#cmp">cmp file format</A>
+  <DD><A HREF="#gff">gff file format</A>
+  <DD><A HREF="#cgff">cgff file format</A>
+</DL>
+
+<H2><A NAME="intro"></A>Introduction</H2>
+
+<P>Comparative sequence analysis is a powerful way of finding
+coding and regulatory regions in genomic DNA sequences. It does,
+however, require the use of several different types of analysis.
+The aim of Alfresco is to provide the user with a consistent interface
+to these analysis methods and to display the results in an intuitive
+way.</P>
+
+<P><I>Please note that Alfresco is very much a program in development,
+which means that things might change quite rapidly so that what
+is described in this manual might not always be up to date. The
+contents of this manual reflects the functionality of <B>Alfresco
+version 0.9</B>.</I></P>
+
+<H2><A NAME="install"></A>Installation</H2>
+
+<P>For installation please consult the <A HREF="../README.html">README</A>
+file of the distribution.</P>
+
+<H2><A NAME="quickstart"></A>Quick Start</H2>
+
+<P>The distribution archive comes with some example files to get
+you going. These are sequence files in fasta format and <A HREF="#cmp">cmp
+files</A>, which are files that contains information about were
+exons are located and which exons in the two sequences that corresponds
+to each other.</P>
+
+<P>&nbsp;</P>
+
+<OL>
+  <LI>Type <pre>alfresco</pre> to start the program.
+  <LI>Select &quot;Read .cmp file&quot; from the &quot;File&quot;
+  menu.
+  <LI>Choose one of the .cmp files. This will read in the two sequence
+  files and the exon information in the cmp file.
+  <LI>You should now see two lines with some green boxes drawn
+  on them and lines drawn between the boxes on the two lines. Something
+  like this (click on the image to enlarge it in a separate browser
+  window):
+  <P><A HREF="fig1.gif" TARGET="figwin"><IMG SRC="fig1.gif" WIDTH="300"
+  HEIGHT="219" NATURALSIZEFLAG="2" ALIGN="BOTTOM"></A>
+  <LI>There you are! Now you can poke around and try everything
+  out by yourself, or go on reading the rest of this manual if
+  you like.
+</OL>
+
+<H2>Usage</H2>
+
+<PRE>alfresco [&lt;pair file&gt; | &lt;cmp file&gt; | options]</PRE>
+
+<BLOCKQUOTE>
+  <PRE>options:
+-g &lt;gff file&gt; &lt;seq file 1&gt; &lt;seqfile 2&gt;   reads gff file and seq files
+-c &lt;cgff file&gt; &lt;seq file 1&gt; &lt;seqfile 2&gt;  reads cgff file and seq files
+-b &lt;seq file 1&gt; &lt;seqfile 2&gt;              batch mode</PRE>
+</BLOCKQUOTE>
+
+<H2><A NAME="term"></A>Terminology</H2>
+
+<P>Some terms that some people might find odd:</P>
+
+<DL>
+  <DT><B>Entry</B><A NAME="entry"></A>
+  <DD>A DNA sequence specified by a fasta file.
+  <DT><B>Entry pair</B>
+  <DD>A pair of entries. The 'working unit' of Alfresco.
+  <DT><B>Feature</B>
+  <DD>A feature of an entry, e.g. a coding exon, UTR, Repeat etc.
+  <DT><B>Reciprocal</B>
+  <DD>A feature indicating a homologous relationship between two
+  features.
+  <DT><B>Tier</B>
+  <DD>The level above (or below) the line representing the entry
+  on which a feature is drawn in the display area. The entry is
+  drawn on tier 1 and the scale bar is drawn on tier 10.
+</DL>
+
+<H2><A NAME="mainwin"></A>Main Window</H2>
+
+<P>The upper part of the main window contains buttons and textfields
+for selecting sequences (see &quot;<A HREF="#imp">Importing sequences</A>&quot;
+below). Below that are four rows of labels that display (1) the
+status of the program, (2, 3) the zoomlevel of the two sequences,
+and (4) a description of the selected feature(s), if any. Most
+of the window is taken up by the <A HREF="#display">display area</A>
+which shows a graphic representation of the sequences and any
+features associated with these.</P>
+
+<P><A NAME="imp"></A></P>
+
+<H3>Importing sequences</H3>
+
+<P>There are several ways of importing sequences into Alfresco.
+Currently sequence files must be in <B>fasta</B> format.</P>
+
+<UL>
+  <LI>The &quot;Select Sequence&quot; buttons at the top of the
+  main window brings up a file dialog so that you can choose the
+  fasta file with the sequence you want to use.
+  <LI>You can also type the name of the fasta file containing the
+  sequence directly into the textfield and hit return to load the
+  sequence.
+  <LI>Finally, you can select &quot;<A HREF="#readCmp">Read .cmp
+  file</A>&quot; from the &quot;File&quot; menu, which will automatically
+  load the right fasta files if they are present.
+</UL>
+
+<H3><A NAME="display"></A>Display area</H3>
+
+<P>The display shows the pair of sequences (or <I>entries</I>)
+as lines in the middle. At the top and the bottom of the display
+there are scale bars for the two entries. <I>Features</I> are
+drawn as boxes above or below the line depending on if they are
+on the upper or lower strand. Features can be on other levels
+(tiers) above (or below) the sequences as well. Features will
+have a colour dependent on their type, e.g. coding exons are green,
+UTRs are yellow etc.</P>
+
+<P><I>Genes</I> are slightly different as they are composed of
+other features such as Exons, UTRs, promoters and polyA signals.
+A gene is drawn as a blue border outlining the features it contains
+and a name tag with &quot;&gt;&quot; and &quot;&lt;&quot; indicating
+the direction of transcription.</P>
+
+<P>A special kind of feature is the <I>Reciprocal</I>. This is
+drawn as a grey line between two features on either entry, and
+indicates that there is a homologous relationship between the
+two features.</P>
+
+<P>Features can be <B>selected</B> by clicking with the left mouse
+button, and additional features can be selected by clicking while
+pressing the shift key. Ranges of the entries can also be selected
+by click-dragging with the left mouse button, and additional ranges
+can be selected by click-dragging with the shift key. (<B><I>Note
+to old users!</I></B><I> The middle button clicking of pre-0.9
+versions has been disabled.</I>) Selecting a feature or range
+will make the label just above the display area show what type
+of feature(s) has been selected and the range it covers. Some
+functions will only operate on a selected feature(s) or range(s)
+(see the <A HREF="#edit">Edit</A>, <A HREF="#function">Function</A>,
+and <A HREF="#view">View</A> menu descriptions below).</P>
+
+<P>There are scrollbars to manipulate the view of the sequences:</P>
+
+<UL>
+  <LI>The scrollbars <I>above</I> and <I>below</I> the display
+  are for <B>scrolling</B> the sequences individually, and the
+  slightly darker grey scrollbar at the bottom is for scrolling
+  them synchronously.
+  <LI>The scrollbars to the <I>right</I> of the display are for
+  <B>zooming</B> the sequences individually, and the slightly darker
+  grey scrollbar at the far right is for zooming them synchronously.
+  <P>&nbsp;
+</UL>
+
+<H3><A NAME="menus"></A>Menus</H3>
+
+<UL>
+  <DL>
+    <DT><h4><A NAME="file"></A>File</h4>
+    <DL>
+      <DT><h5>Open...</h5>
+      <DD>Brings up a dialog to choose a previously saved Entry pair
+      file.
+      <DT><h5>Save...</h5>
+      <DD>Saves an Entry pair to a file in an application specific
+      format.
+      <DT><h5>Close...</h5>
+      <DD>Closes the current Entry pair. Asks if the Entry pair should
+      be saved before closing.
+      <DT><h5><A NAME="readCmp"></A>Read .cmp file</h5>
+      <DD>Reads in a <A HREF="#cmp">.cmp</A> file. If two entries are
+      loaded the features specified in the .cmp file will be added
+      to those.<BR>
+      If <B>no</B> entries are loaded Alfresco will look for fasta
+      files with the names specified on the ID line of the .cmp file
+      (excluding any colon delimited prefix, e.g. <I>em:</I>), in the
+      <I>current working directory</I>. If no fasta files are found
+      Alfresco will try to call efetch to get local copies of the sequence
+      files, otherwise it will fail.
+      <DT><h5><A NAME="readgff"></A>Read .gff file</h5>
+      <DD>Reads in a <A HREF="#gff">.gff</A> file and adds the features
+      specified in the file to the appropriate entry/entries.
+      <DT><h5>Read .cgff file</h5>
+      <DD>Reads in a <A HREF="#cgff">.cgff</A> file and adds reciprocals
+      for the features specified in the file.
+      <DT><h5>Write .gff file...</h5>
+      <DD>Writes information about the features of the current Entry
+      pair to a file in <A HREF="#gff">.gff</A> format.
+      <DT><h5>Write .cgff file...</h5>
+      <DD>Writes information about reciprocal features to a file in
+      format + a <A HREF="#gff">.gff</A> file (see above).
+    </DL>
+  </DL>
+</UL>
+
+<BLOCKQUOTE>
+  <BLOCKQUOTE>
+    <H5>Print..</H5>
+  </BLOCKQUOTE>
+</BLOCKQUOTE>
+
+<UL>
+  <UL>
+    <UL>
+      <DL>
+        <DT>Sends the contents of the sequence canvas to a printer.
+      </DL>
+    </UL>
+  </UL>
+</UL>
+
+<BLOCKQUOTE>
+  <BLOCKQUOTE>
+    <H5>Open Remote EntryPair</H5>
+  </BLOCKQUOTE>
+</BLOCKQUOTE>
+
+<UL>
+  <DL>
+    <DL>
+      <DL>
+        <DT>Opens a dialog for selecting a pre-analysed pair of sequences
+        from a CORBA server. (Might disapear in the near future).
+      </DL>
+      <DT><h5>Quit</h5>
+      <DD>Quits Alfresco
+    </DL>
+    <DT><h4><A NAME="edit"></A>Edit</h4>
+    <DL>
+      <DT><h5>Edit/Create feature</h5>
+      <DD>This brings up a dialog window for editing an existing feature,
+      or for creating a new one.
+      <P><A HREF="fig2.gif" TARGET="figwin"><IMG SRC="fig2.gif" WIDTH="326"
+      HEIGHT="270" NATURALSIZEFLAG="3" ALIGN="BOTTOM"></A>
+      <P>If a feature or a range is selected the values of that selection
+      will be filled in the different textfields and pop-up menus of
+      the dialog, otherwise they will be empty.
+      <DL>
+        <DT><B>Entry</B>
+        <DD>A pop-up menu to select the Entry the feature belongs to.
+        <DT><B>Feature type</B>
+        <DD>A list of feature types.
+        <DT><B>Rev-Compl</B>
+        <DD>Whether the feature is on the reverse strand, or not.
+        <DT><B>Start</B>
+        <DD>Start nucleotide position of the feature. <BR>
+        <B>Note!</B> If the feature is on the reverse strand this will
+        be the stop position, i.e. the Start field value must always
+        be less than or equal to the Stop field value.
+        <DT><B>Stop</B>
+        <DD>Stop nucleotide position of the feature. <BR>
+        <B>Note!</B> If the feature is on the reverse strand this will
+        be the start position, i.e. the Stop field value must always
+        be greater than or equal to the Start field value.
+        <DT><B>Tier</B>
+        <DD>The tier on which the feature should be drawn.
+      </DL>
+      <DT><h5>Change Tier</h5>
+      <DD>This brings up a dialog to specify the tier on which a selected
+      feature should be drawn.
+      <P><A HREF="fig3.gif" TARGET="figwin"><IMG SRC="fig3.gif" WIDTH="221"
+      HEIGHT="79" NATURALSIZEFLAG="3" ALIGN="BOTTOM"></A>
+      <DT><h5>Remove feature</h5>
+      <DD>Removes selected feature(s).
+    </DL>
+  </DL>
+</UL>
+
+<BLOCKQUOTE>
+  <BLOCKQUOTE>
+    <H5>Make Gene</H5>
+  </BLOCKQUOTE>
+</BLOCKQUOTE>
+
+<UL>
+  <UL>
+    <UL>
+      <DL>
+        <DT>Creates a new gene from selected Exons and UTRs. Brings up
+        a dialog to specify a gene name and the tier the gene should
+        be drawn on.
+        <DT><IMG SRC="gene_att.gif" WIDTH="228" HEIGHT="83" ALIGN="BOTTOM"
+        BORDER="0" NATURALSIZEFLAG="3">
+      </DL>
+    </UL>
+  </UL>
+</UL>
+
+<BLOCKQUOTE>
+  <BLOCKQUOTE>
+    <H5>Edit Gene Attributes</H5>
+  </BLOCKQUOTE>
+</BLOCKQUOTE>
+
+<UL>
+  <UL>
+    <UL>
+      <DL>
+        <DT>Brings up the same dialog as the Make Gene menu item, to
+        specify a gene name and the tier the gene should be drawn on.
+      </DL>
+    </UL>
+  </UL>
+</UL>
+
+<BLOCKQUOTE>
+  <BLOCKQUOTE>
+    <H5>Add Feature to Gene</H5>
+  </BLOCKQUOTE>
+</BLOCKQUOTE>
+
+<UL>
+  <UL>
+    <UL>
+      <DL>
+        <DT>Adds a selected Exon or UTR to a selected gene.
+      </DL>
+    </UL>
+  </UL>
+</UL>
+
+<BLOCKQUOTE>
+  <BLOCKQUOTE>
+    <H5>Remove Feature from Gene</H5>
+  </BLOCKQUOTE>
+</BLOCKQUOTE>
+
+<UL>
+  <UL>
+    <UL>
+      <DL>
+        <DT>Removes a selected Exon or UTR from the containg gene.
+      </DL>
+    </UL>
+  </UL>
+</UL>
+
+<BLOCKQUOTE>
+  <BLOCKQUOTE>
+    <H5>Confirm Exons</H5>
+  </BLOCKQUOTE>
+</BLOCKQUOTE>
+
+<UL>
+  <UL>
+    <UL>
+      <DL>
+        <DT>Tags the exon as a real exon.
+      </DL>
+    </UL>
+  </UL>
+</UL>
+
+<BLOCKQUOTE>
+  <BLOCKQUOTE>
+    <H5>Unconfirm Exons</H5>
+  </BLOCKQUOTE>
+</BLOCKQUOTE>
+
+<UL>
+  <UL>
+    <UL>
+      <DL>
+        <DT>Tags the exon as an exon that is not confirmed to be real.
+      </DL>
+    </UL>
+  </UL>
+</UL>
+
+<BLOCKQUOTE>
+  <BLOCKQUOTE>
+    <H5>Hide Unconfirmed Exons</H5>
+  </BLOCKQUOTE>
+</BLOCKQUOTE>
+
+<UL>
+  <DL>
+    <DL>
+      <DL>
+        <DT>Toggles between hiding and showing unconfirmed exons. The
+        default is to show unconfirmed exons
+      </DL>
+      <DT><h5>Make Reciprocal</h5>
+      <DD>Creates a new Reciprocal between two <I>selected</I> features.<BR>
+      <B>Note!</B> There is <B>no</B> checking to make sure that the
+      features are similar.
+    </DL>
+    <DT><h4><A NAME="function"></A>Function</h4>
+    <DL>
+      <DT><h5><A NAME="cpgMI"></A>CpG</h5>
+      <DD>Calls the <A HREF="#cpg">cpg</A> program for both entries,
+      and draws CpG islands on the display area. Settings for the cpg
+      program can be altered through the settings menu.
+      <DT><h5><A NAME="repeatmaskerMI"></A>RepeatMasker</h5>
+      <DD>Calls the <A HREF="#repeatmasker">RepeatMasker</A> program
+      for both entries. Brings up a dialog window for selecting the
+      species that each sequence belongs to. Settings for the RepeatMasker
+      program can be altered through the settings menu.
+      <P><A HREF="fig4.gif" TARGET="figwin"><IMG SRC="rep_spec.gif"
+      WIDTH="282" HEIGHT="166" ALIGN="BOTTOM" BORDER="0" NATURALSIZEFLAG="3"></A>
+      <P>Repeats are drawn as boxes couloured depending on the type
+      of repeat. LINEs - light green; SINEs - blue; LTR repeats - magenta;
+      DNA transposons - orange; Low complexity repeats - brown; Simple
+      repeats - pink; other repeats - black.
+      <DT><h5><A NAME="genscanMI"></A>Genscan</h5>
+      <DD>Calls the <A HREF="#repeatmasker">Genscan</A> program for
+      both entries. Genscan will not search for exons in regions labled
+      as repeats. Settings for the genscan can be altered through the
+      settings menu.
+    </DL>
+  </DL>
+</UL>
+
+<BLOCKQUOTE>
+  <BLOCKQUOTE>
+    <H5><A NAME="blastnMI"></A>Blastn alignment</H5>
+  </BLOCKQUOTE>
+</BLOCKQUOTE>
+
+<UL>
+  <UL>
+    <UL>
+      <DL>
+        <DT>Finds regions conserved in the two entries using blastn.
+        Regions are added to the sequences as Similarity features with
+        Reciprocals between them. If you want to see an alignment use
+        the NW alignment from the View menu. 
+      </DL>
+    </UL>
+  </UL>
+</UL>
+
+<BLOCKQUOTE>
+  <BLOCKQUOTE>
+    <H5><A NAME="blastwiseMI"></A>BlastWise</H5>
+  </BLOCKQUOTE>
+</BLOCKQUOTE>
+
+<UL>
+  <UL>
+    <UL>
+      <DL>
+        <DT>Does a blastx search against a protein sequence database
+        with both sequences. Significant non-overlapping matching protein
+        sequences are aligned to the genomic sequences by the genewise
+        program. Gene structures predicted by genewise are added to the
+        sequences as Genes. Settings for the blastwise program, such
+        as the database to be searched, can be altered through the settings
+        menu.
+      </DL>
+    </UL>
+  </UL>
+</UL>
+
+<BLOCKQUOTE>
+  <BLOCKQUOTE>
+    <H5><A NAME="blest_genomeMI"></A>BlEst_genome</H5>
+  </BLOCKQUOTE>
+</BLOCKQUOTE>
+
+<UL>
+  <UL>
+    <UL>
+      <DL>
+        <DT>Does a blastn search against a DNA sequence database (preferably
+        a RNA database, such as the EST subsection of EMBL). Significant
+        non-overlapping matching sequences are aligned to the genomic
+        sequences by the est_genome program. Gene structures predicted
+        by est_genome are added to the sequences as Genes. Settings for
+        the est_genome program, such as the database to be searched,
+        can be altered through the settings menu. The blEst_genome allows
+        for a specified number of overlapping hits to be aligned to the
+        genomic sequence to be able to detect alternatively spliced gene
+        structures.
+      </DL>
+    </UL>
+  </UL>
+</UL>
+
+<BLOCKQUOTE>
+  <BLOCKQUOTE>
+    <H5>est_genome</H5>
+  </BLOCKQUOTE>
+</BLOCKQUOTE>
+
+<UL>
+  <DL>
+    <DL>
+      <DL>
+        <DT>Brings up a dialog for selecting a fasta file of RNA sequences
+        that will be aligned to both enties by the est_genome program.
+        Gene structures predicted by est_genome are added to the sequences
+        as Genes. At the moment no settings dialog has been implemented
+        for est_genome.
+      </DL>
+      <DD><FONT SIZE="-1"><!--<h5>Find reciprocals</h5>
+Tries to find reciprocals for all exons. Uses dba. Can take a long time!--></FONT>
+      <DT><h5><A NAME="regionset"></A>Region Set</h5>
+      <DD>The Region set method is a way to find regions similar to
+      any other region, be that in the same or the other entry. It
+      is intended to be used to find regions outside of the coding
+      and repeat regions, i.e. potential regulatory regions. Brings
+      up a dialog window:
+      <P><A HREF="fig5.gif" TARGET="figwin"><IMG SRC="fig5.gif" WIDTH="306"
+      HEIGHT="180" NATURALSIZEFLAG="3" ALIGN="BOTTOM"></A>
+      <P>Before clicking the Initialize button, exclusion (or not)
+      of repeats and coding exons should be selected using the checkboxes.
+      Clicking initalize will start some external processes that will
+      <I>take some time</I>, especially if the sequences are long.
+      When it is done, regions having similarity to any other region
+      will be covered by a small dark box, something like this:<BR>
+      <IMG SRC="fig6.gif" WIDTH="212" HEIGHT="116" NATURALSIZEFLAG="3"
+      ALIGN="BOTTOM"><BR>
+      The stringency of similarity can be varied using the Cutoff scrollbar
+      or text field in the Region set parameter dialog.
+      <P>Selecting a region will display with boxes, on a higher tier,
+      all regions similar to the selected one:<BR>
+      <IMG SRC="fig7.gif" WIDTH="215" HEIGHT="107" NATURALSIZEFLAG="3"
+      ALIGN="BOTTOM"><BR>
+      A selected Region set can be added to the display area by clicking
+      the Add button of the Region set parameter dialog. This will
+      bring up yet another dialog where the colour of the Region set
+      can be choosen:
+      <P><IMG SRC="fig8.gif" WIDTH="156" HEIGHT="210" NATURALSIZEFLAG="3"
+      ALIGN="BOTTOM">
+      <P>A Region set that has been added to the display can be removed
+      using the Remove button of the Region set parameter dialog.
+      <P>Clicking the Cancel button will close the Region set parameter
+      dialog, and hide all the Region sets except those that have been
+      added to the display area:<BR>
+      <IMG SRC="fig9.gif" WIDTH="204" HEIGHT="93" NATURALSIZEFLAG="3"
+      ALIGN="BOTTOM">
+      <P>Region sets can be examined in various ways by selecting &quot;<A
+      HREF="#seqMI">Sequence</A>&quot;, <A HREF="#dotterMI">Dotter</A>&quot;,
+      or &quot;<A HREF="#newdbaMI">(new)dba alignment</A>&quot; from
+      the <A HREF="#view">View</A> menu.
+    </DL>
+    <DT><h4><A NAME="view"></A>View</h4>
+    <DL>
+      <DT><h5><A NAME="seqMI"></A>Sequence</h5>
+      <DD>Displays the DNA sequence of a selected feature or range
+      in a separate window:
+      <P><A HREF="fig10.gif" TARGET="figwin"><IMG SRC="fig10.gif" 
+      WIDTH="503" HEIGHT="342" NATURALSIZEFLAG="3" ALIGN="BOTTOM"></A>
+      <P>The sequence can be saved to file either as displayed in the
+      window or in fasta format by clicking on the appropriate button.
+      A gff file of <I>relative</I> positions of the features covering
+      the sub-sequence can also be saved.
+    </DL>
+  </DL>
+</UL>
+
+<BLOCKQUOTE>
+  <BLOCKQUOTE>
+    <H5>Amino acid sequence translation</H5>
+  </BLOCKQUOTE>
+</BLOCKQUOTE>
+
+<UL>
+  <UL>
+    <UL>
+      <DL>
+        <DT>Displays the amino acid translation of a <I>selected</I>
+        Gene. Note that no checking is done to see if the start of the
+        first exon is in the right frame. The sequence can be saved to
+        file either as displayed in the window or in fasta format by
+        clicking on the appropriate button.
+      </DL>
+    </UL>
+  </UL>
+</UL>
+
+<BLOCKQUOTE>
+  <BLOCKQUOTE>
+    <H5>ATGs</H5>
+    <BLOCKQUOTE>
+      <P>Shows the locations of ATG codons on the upper and lower strands.
+      Note that ATGs are only visible at higher zoom levels.</P></BLOCKQUOTE>
+  </BLOCKQUOTE>
+</BLOCKQUOTE>
+
+<UL>
+  <UL>
+    <DL>
+      <DT><h5><A NAME="dotterMI"></A>Dotter</h5>
+      <DD>Calls <A HREF="#dotter">Dotter</A> in interactive mode with
+      a pair of selected features or ranges.
+      <DT><h5><A NAME="newdbaMI"></A>dba alignment</h5>
+      <DD>Calls <A HREF="#dba">dba</A> on a pair of selected features
+      or ranges. The resulting alignments are displayed in a separate
+      window:
+      <P><A HREF="fig11.gif" TARGET="figwin"><IMG SRC="fig11.gif" 
+      WIDTH="505" HEIGHT="340" NATURALSIZEFLAG="3" ALIGN="BOTTOM"></A>
+      <P>The alignments can be saved to file by clicking the Save to
+      file button. The aligned ranges and reciprocals can be added
+      to the display area by clicking the Make Reciprocals button.
+      <P>The settings for the dba algorithm can be altered using the
+      &quot;<A HREF="#newdbasettings">dba settings</A>&quot; from the
+      <A HREF="#settings">Settings</A> menu.
+      <DT><h5>NW alignment</h5>
+      <DD>Does a Needleman-Wunsh (global) type of alignment on two
+      selected features or ranges. The resulting alignment is displayed
+      in a separate alignment window, as for <A HREF="#newdbaMI">dba
+      alignments</A>.
+      <DT><h5>SW alignment</h5>
+      <DD>Does a Smith-Waterman (local) type of alignment on two selected
+      features or ranges. The resulting alignment is displayed in a
+      separate alignment window, as for <A HREF="#newdbaMI">dba alignments</A>.
+    </DL>
+  </UL>
+</UL>
+
+<BLOCKQUOTE>
+  <BLOCKQUOTE>
+    <H5>save exons to file</H5>
+  </BLOCKQUOTE>
+</BLOCKQUOTE>
+
+<UL>
+  <DL>
+    <DL>
+      <DD><I>Experimental feature</I>. Saves all exons as separate
+      sequences in one fasta file for each entry. The files are called
+      &quot;exons1&quot; and &quot;exons2&quot;. (Yes, it's ugly! ;)
+    </DL>
+    <DT><h4><A NAME="settings"></A>Settings</h4>
+    <DL>
+      <DT><h5>Show Introns</h5>
+      <DD>Toggles between showing and hiding introns (if there are
+      any introns defined). Default is to hide introns.
+      <DT><h5><A NAME="newdbasettings"></A>dba settings</h5>
+      <DD>Brings up a dialog window for changing the parameters for
+      <A HREF="#dba">dba</A>:
+      <P><A HREF="fig4.gif" TARGET="figwin"><IMG SRC="dba_set.gif"
+      WIDTH="172" HEIGHT="238" ALIGN="BOTTOM" BORDER="0" NATURALSIZEFLAG="3"></A>
+      <P>The values are probability values, and the only parameters
+      that there would be any reason to change are the match and gap
+      parameters.
+    </DL>
+  </DL>
+</UL>
+
+<BLOCKQUOTE>
+  <BLOCKQUOTE>
+    <H5>blastalign</H5>
+    <BLOCKQUOTE>
+      <P>Brings up a dialog window for changing the parameters for
+      blastwise:</P>
+      <P><IMG SRC="blastalign_set.gif" WIDTH="289" HEIGHT="175" ALIGN="BOTTOM"
+      BORDER="0" NATURALSIZEFLAG="3"></P>
+      <P><B>MSPcrunch</B>: path to the MSPcrunch executable<BR>
+      <B>formatdb</B>: path to the formatdb executable<BR>
+      <B>blastall</B>: path to the blastall executable<BR>
+      <B>iorurl</B>: url to the CORBA server IOR file</P></BLOCKQUOTE>
+    <H5>blastwise</H5>
+  </BLOCKQUOTE>
+</BLOCKQUOTE>
+
+<UL>
+  <UL>
+    <UL>
+      <DL>
+        <P>Brings up a dialog window for changing the parameters for
+        blastwise:
+        <P><IMG SRC="blastw_set.gif" WIDTH="289" HEIGHT="140" ALIGN="BOTTOM"
+        BORDER="0" NATURALSIZEFLAG="3">
+        <P>Use the radio buttons to choose if the analysis should be
+        run locally or through CORBA. <BR>
+        <B>blastwise.pl</B>: path to the blastwise script <BR>
+        <B>database</B>: name of blast database to be searched<BR>
+        <B>iorurl</B>: url to the CORBA server IOR file
+      </DL>
+    </UL>
+  </UL>
+</UL>
+
+<BLOCKQUOTE>
+  <BLOCKQUOTE>
+    <H5>blEst_genome</H5>
+  </BLOCKQUOTE>
+</BLOCKQUOTE>
+
+<UL>
+  <UL>
+    <UL>
+      <DL>
+        <P>Brings up a dialog window for changing the parameters for
+        blEst_genome:
+        <P><IMG SRC="blest_set.gif" WIDTH="305" HEIGHT="215" ALIGN="BOTTOM"
+        BORDER="0" NATURALSIZEFLAG="3">
+        <P>Use the radio buttons to choose if the analysis should be
+        run locally or through CORBA.<BR>
+        <B>d</B>: name of blast database to be searched<BR>
+        <B>iorurl</B>: url to the CORBA server IOR file<BR>
+        <B>blEst_genome</B>: path to the blEst_genome script <BR>
+        <B>h</B>: number of overlapping hits to align<BR>
+        <B>e</B>: e-value cutoff (matches with higher values are excluded)<BR>
+      </DL>
+    </UL>
+  </UL>
+</UL>
+
+<BLOCKQUOTE>
+  <BLOCKQUOTE>
+    <H5>CpG</H5>
+  </BLOCKQUOTE>
+</BLOCKQUOTE>
+
+<UL>
+  <UL>
+    <UL>
+      <DL>
+        <P>Brings up a dialog window for changing the parameters for
+        cpg:
+        <P><IMG SRC="cgp_set.gif" WIDTH="284" HEIGHT="241" ALIGN="BOTTOM"
+        BORDER="0" NATURALSIZEFLAG="3">
+        <P>Use the radio buttons to choose if the analysis should be
+        run locally or through CORBA.<BR>
+        <B>cpg</B>: path to the cpg executable <BR>
+        <B>cpg2ace</B>: path to the cpg2ace script <BR>
+        <B>iorurl</B>: url to the CORBA server IOR file<BR>
+        <B>o</B>: obs/exp CpG frequency<BR>
+        <B>l</B>: min length<BR>
+        <B>g</B>: min GC content
+      </DL>
+    </UL>
+  </UL>
+</UL>
+
+<BLOCKQUOTE>
+  <BLOCKQUOTE>
+    <H5>Genscan</H5>
+  </BLOCKQUOTE>
+</BLOCKQUOTE>
+
+<UL>
+  <UL>
+    <UL>
+      <DL>
+        <P>Brings up a dialog window for changing the parameters for
+        genscan:
+        <P><IMG SRC="gs_set.gif" WIDTH="319" HEIGHT="182" ALIGN="BOTTOM"
+        BORDER="0" NATURALSIZEFLAG="3">
+        <P>Use the radio buttons to choose if the analysis should be
+        run locally or through CORBA.<BR>
+        <B>HumanIso.mat</B>: path to the matrices file<BR>
+        <B>subopt</B>: cutoff score for sub-optimal exons <BR>
+        <B>genscan</B>: path to the genscan executable<BR>
+        <B>iorurl</B>: url to the CORBA server IOR file
+      </DL>
+    </UL>
+  </UL>
+</UL>
+
+<BLOCKQUOTE>
+  <BLOCKQUOTE>
+    <H5>RepeatMasker</H5>
+  </BLOCKQUOTE>
+</BLOCKQUOTE>
+
+<UL>
+  <UL>
+    <UL>
+      <DL>
+        <P>Brings up a dialog window for changing the parameters for
+        RepeatMasker:
+        <P><IMG SRC="rep_set.gif" WIDTH="291" HEIGHT="132" ALIGN="BOTTOM"
+        BORDER="0" NATURALSIZEFLAG="3">
+        <P>Use the radio buttons to choose if the analysis should be
+        run locally or through CORBA.<BR>
+        <B>RepeatMasker</B>: path to the RepeatMasker script<BR>
+        <B>iorurl</B>: url to the CORBA server IOR file
+      </DL>
+    </UL>
+  </UL>
+</UL>
+
+<H2><A NAME="external"></A>External programs</H2>
+
+<P>Alfresco makes use of several external analysis programs. Here
+is a list of short descriptions of the programs currently used
+with links to further documentation if it is available. More programs
+will most certainly be incorporated in the future. Currently Alfresco
+makes system calls to these programs, and reads in the results
+directly or from files produced by the programs. Some programs
+will produce result files that might be left in your working directory.</P>
+
+<H3><A NAME="dotter"></A>Dotter</H3>
+
+<P><A HREF="http://www.sanger.ac.uk/Software/Dotter/">Dotter</A>
+is a dotplot program for comparison of two sequences written by
+Erik Sonnhammer and Richard Durbin. One of the many nice features
+of dotter is the ability to import sequence feature data. When
+calling dotter from Alfresco sequence features associated with
+the sequences will be displayed on the sides of the dotplot:</P>
+
+<P><A HREF="fig13.gif" TARGET="figwin"><IMG SRC="fig13.gif" WIDTH="300"
+HEIGHT="300" NATURALSIZEFLAG="2" ALIGN="BOTTOM"></A><BR>
+(The colourmap of the dotpot area is screwed up)</P>
+
+<P>Please see the <A HREF="http://www.sanger.ac.uk/Software/Dotter/">documentation</A>
+for more information on all the functionality of Dotter.</P>
+
+<H3><A NAME="cpg"></A>CpG</H3>
+
+<P>cpg is a CpG island finder. CpG islands are usually defined
+as being longer than 200 bp with a GC contant over 50% and an
+observed to expected ratio of CpG dinucleotides above 0.6 (Larsen
+et al. 1992 Genomics 13:1095-1107). The cpg program was written
+by Gos Micklem when he was at the Sanger Centre.</P>
+
+<H3><A NAME="repeatmasker"></A>RepeatMasker</H3>
+
+<P><A HREF="http://ftp.genome.washington.edu/RM/RepeatMasker.html">RepeatMasker</A>,
+written by Arian Smit and Phil Green finds interspersed repeats
+known to exist in mamalian genomes, as well as simple repeats
+and low complexity regions.</P>
+
+<H3><A NAME="genscan"></A>Genscan</H3>
+
+<P><A HREF="http://CCR-081.mit.edu/GENSCAN.html">Genscan</A> is
+a gene prediction program written by Chris Burge and Samuel Karlin.
+It is designed to predict complete gene structures in genomic
+sequences. Alfresco will display predicted genes, as well as &quot;sub-optimal&quot;
+exons predicted by Genscan.</P>
+
+<H3><A NAME="dba"></A>DBA</H3>
+
+<P>dba is a <B>D</B>NA <B>b</B>lock <B>a</B>ligner, written by
+Ewan Birney, Richard Durbin, and, to a miniscule extent, myself.
+It finds co-linear blocks of high similarity in two DNA sequences.
+dba is now part of Ewan Birney's <A HREF="http://www.sanger.ac.uk/Software/Wise2/">Wise2</A>
+package.</P>
+
+<P>DBA can be <A HREF="#newdbaMI">called</A> from Alfresco with
+two selected features or ranges. It is also currently used by
+the &quot;<A HREF="#regionset">Region Set</A>&quot; and &quot;<A
+HREF="#findreciprocals">Find Reciprocals</A>&quot; methods.</P>
+
+<P>The parameters for dba can be modified using the <A HREF="#newdbasettings">dba
+settings dialog</A>. There are 7 parameters to change, but there
+should only be reason to change the <B>Match</B> and <B>Gap</B>
+parameters. The values are probability scores. Increasing the
+Match value will give alignments with higher similarity. Increasing
+the Gap value will give alignments with more gaps.</P>
+
+<H3>Blast/MSPcrunch</H3>
+
+<P><A HREF="http://www.ncbi.nlm.nih.gov/BLAST/">Blast</A> (NCBI's
+version 2) is used by Alfresco for database searching from the
+blastwise and blEst_genome scripts. Blast is also used to identify
+conserved regions in the two entries. One of the sequences is
+formated into a blast searchable database. The other sequence
+is then used as a query against this on-sequence-database. The
+blast output is run through Erik Sonnhammer's <A HREF="http://kisac.cgr.ki.se/cgr/groups/sonnhammer/MSPcrunch.html">MSPcrunch</A>
+program to parse the result and filter out low-scoring matches.</P>
+
+<H3>Genewise</H3>
+
+<P>Genewise is part of Ewan Birney's <A HREF="http://www.sanger.ac.uk/Software/Wise2/">Wise2</A>
+package. It aligns a protein sequences to a genomic sequence allowing
+for introns and frameshifts.</P>
+
+<H3>Est_genome</H3>
+
+<P>Est_genome aligns an RNA sequence to a genomic sequence allowing
+for introns and frameshifts. It was written by Richard Mott when
+he was at the Sanger Centre. There is a <A HREF="http://www3.oup.co.uk/bioinformatics/hdb/Volume_13/Issue_04/130477.sgm.abs.html">paper</A>
+describing it in Bioinformatics/CABIOS.</P>
+
+<H2><A NAME="session"></A>Example session</H2>
+
+<P>Here is a proposal for a working order for analysing a pair
+of sequences.</P>
+
+<UL>
+  <LI>Start by <A HREF="#imp">importing</A> your sequences.
+  <LI>Run <A HREF="#cpgMI">CpG</A> and <A HREF="#repeatmaskerMI">RepeatMasker</A>
+  to find CpG islands and repeats.
+  <LI>Run <A HREF="#blastnMI">Blastn alignment</A> to determine
+  where similar regions are.
+  <LI>Run <A HREF="#blastwiseMI">BlastWise</A> and <A HREF="#blest_genomeMI">blEst_genome</A>
+  to predict gene structures from homologous sequences. These steps
+  are quite time consuming.
+  <LI>Run <A HREF="#genscanMI">Genscan</A> to find potential genes
+  and exons. Genscan will not search for exons in regions labled
+  as repeats.
+  <LI>Examine the results, and manually edit or remove exons using
+  the functions of the <A HREF="#edit">Edit</A> menu.
+  <LI>For finding conserved regions outside of the coding regions
+  run <A HREF="#newdbaMI">DBA</A> (and/or <A HREF="#regionset">Region
+  Set)</A>.
+</UL>
+
+<!--<h2>Editing</h2>-->
+
+<H2><A NAME="acedb"></A>Alfresco and ACEDB</H2>
+
+<P>If you have done analysis of your sequences in ACEDB you can
+get the features from ACEDB to Alfresco by exporting them in gff
+format: from a fmap window in ACEDB select Export Features from
+the right button pull-down menu. Then select <A HREF="#readgff">Read
+.gff file</A> from the File menu in Alfresco. In the future Alfresco
+might be able to talk to ACEDB directly, so you don't need to
+go through this step of an intermediate file.</P>
+
+<H2><A NAME="appendix"></A>Appendix</H2>
+
+<P><A NAME="cmp"></A></P>
+
+<H3>cmp file format</H3>
+
+<P>This format was developed to be able to import data available
+from the EMBL database. The columns on each line are tab delimited.
+The first line defines the species. The second and third lines
+define the EMBL id and accession number, respectively. The fourth
+line defines the gene name(s). For each feature pair there is
+a line defining feature type, start and stop in first entry, start
+and stop in second entry, and optionally, lengths of features,
+and difference in length of features. The 'Sums:...' line shows
+sums of coding exons and exon length differences.</P>
+
+<PRE>
+OS	Mus musculus	Homo sapiens
+ID	em:MMENDOBA	em:HSKER101
+AC	M22832	M24842
+GENE	cytokeratin, NCBI gi: 532610	keratin 18
+CDS	2347,2742	2580,2996	395	416	-21
+CDS	3535,3617	3738,3820	82	82	0
+CDS	3892,4048	4158,4314	156	156	0
+CDS	4688,4852	4887,5051	164	164	0
+CDS	4964,5089	5137,5262	125	125	0
+CDS	5365,5588	5525,5748	223	223	0
+CDS	5910,6030	6128,6248	120	120	0
+Sums:			1265	1286	-21</PRE>
+
+<P><A NAME="gff"></A></P>
+
+<H3>gff file format</H3>
+
+<P>gff is an exchange format for gene finding features proposed
+by Richard Durbin and David Haussler. The definition is:</P>
+
+<PRE>
+&lt;seqname&gt; &lt;source&gt; &lt;feature&gt; &lt;start&gt; &lt;end&gt; &lt;score&gt; &lt;strand&gt; &lt;frame&gt; [group]</PRE>
+
+<P>Here are some example records:</P>
+
+<PRE>
+SEQ1    EMBL    atg     103     105     0.9     +       0
+SEQ1    EMBL    exon    103     172     6.42    +       0
+SEQ1    EMBL    splice5 172     173     0       +       .
+SEQ1    netgene splice5 172     173     0.94    +       .
+SEQ1    genie   sp5-20  163     182     2.3     +       .
+SEQ1    genie   sp5-10  168     177     2.1     +       .
+SEQ2    grail   ATG     17      19      2.1     -       0</PRE>
+
+<P>More information is available from the <A HREF="http://www.sanger.ac.uk/Users/rd/gff.html">original
+document</A>. <A NAME="cgff"></A></P>
+
+<P>There is now a version 2 of the gff format. The main change
+conserns the structure of the last group field. Alfresco currently
+only deals with version 1 of the format, but this will probably
+change in the future.</P>
+
+<H3>cgff file format</H3>
+
+<P>This format was devised to be able to specify pairs (or sets)
+of sequence features that are homologous, and to be used together
+with feature definition files in <A HREF="#gff">gff</A> format.
+The first line defines a fileformat number (should there be any
+future changes to the format), followed by a date line. The third
+line defines the gff file(s) describing the entries, and the fourth
+line defines the sequence fasta file names. For each pair of features
+is defined the feature type, start and stop. The columns on each
+line are tab delimited.</P>
+
+<PRE>
+##cgff-version	1
+##date	1998-03-23
+##gff	ker.gff
+##seq	MMENDOBA	HSKER101
+Exon	2347	2742	Exon	2580	2996
+Exon	3535	3617	Exon	3738	3820
+Exon	3892	4048	Exon	4158	4314
+Exon	4688	4852	Exon	4887	5051
+Exon	4964	5089	Exon	5137	5262
+Exon	5365	5588	Exon	5525	5748
+Exon	5910	6030	Exon	6128	6248</PRE>
+
+<P><HR ALIGN=LEFT><I>Last modified 2 December, 1999</I>
+
+</BODY>
+</HTML>

@@ -1,0 +1,16 @@
+// $Revision: 1.1 $
+// $Id: BlastWise.idl,v 1.1 2003/04/04 11:38:33 niclas Exp $
+// IDL for CORBA object for a BlastWise analysis objects
+//
+#include "../Server.idl"
+
+module alfresco{
+  module corba_wrappers{
+    module blastwise{
+
+      interface BlastWise : Method {
+      };
+
+    };
+  };
+};

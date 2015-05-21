@@ -1,0 +1,2 @@
+dba {gff, cgff, alignstrings[]} -> Vector AlignmentBlock.makeBlocks(gff, cgff, alignstrings[]) -> 
+AlignmentDisplay(blocks)
