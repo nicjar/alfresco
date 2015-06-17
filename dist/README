@@ -1,12 +1,10 @@
-This is an AstraZeneca distribution of Alfresco version 0.93. 
+This is Alfresco version 0.93. 
 
 It runs on UNIX systems and in principle on Windows systems, although there seems to
 be a problem with running analysis programs under Windows.
 
-This version uses a CORBA server running at Alderly Park for the external 
-analysis programs. (CORBA? What the h*ll is CORBA? Well, you really don't have to
-worry about it. When you select an analysis, like RepeatMasker, that analysis is 
-done on a machine somewhere in the vicinity of Manchester).
+This version points to an unreachable CORBA server, so you will have to set up your own 
+(poke around under src/alfresco/server/), or run analysis programs locally.
 
 If you have a previous version of alfresco installed there will be an 
 incompatibility for previouly saved analysis files. To be on the safe side, 
@@ -30,8 +28,8 @@ type 'alfresco' to run the program.
 INSTALLING ON A WINDOWS SYSTEM
 Note that external methods doesn't seem to work under Windows, which makes it of
 limited use. I'll try to sort this out later.
-To run Alfresco you need java installed. If you haven't got that, get your helpdesk
-to help you with that. Doubble clicking on the alfresco.bat file should do the rest.
+To run Alfresco you need java installed. Double clicking on the alfresco.bat file 
+should do the rest.
 
 
 MANUAL
@@ -44,10 +42,3 @@ There are some example sequences in the example_seq directory. Opening one of th
 .cmp files will open the corresponding sequence files and also display corresponding
 gene features on these sequences, so you can have some colourful boxes to play
 around with ;). 
-
-
-If you have any further questions, just contact me.
-
-Niclas Jareborg
-AstraZeneca R&D Sodertalje
-Molecular Sciences, Genetics & Bioinformatics
