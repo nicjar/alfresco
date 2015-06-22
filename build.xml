@@ -12,7 +12,7 @@
    
   <!-- Version -->
   <property name="version" value="0.94"/>
-  <property name="version.name" value="alfresco_AZ_v${version}"/>
+  <property name="version.name" value="alfresco_v${version}"/>
  
   
   <!-- Source directory -->
